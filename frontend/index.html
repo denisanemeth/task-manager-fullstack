@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ro">
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Task Manager</title>
+        <link rel="stylesheet" href="css/style.css">
+        
+        <script src="/config.js"></script>
+    <script>
+       
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    </head>
+    <body>
+        <div class="main-container">
+
+            <header class="main-header">
+                <h1><span class="logo">✔</span>Task Manager</h1>
+                <p class="subtitle">Organize your tasks efficiently</p>
+                <button class="btn btn-primary" onclick="handleLogout();return false;">Deconectează-te</button>
+            </header>
+
+            <div class="content">
+                <form id="taskForm" class="task-form">
+                    <div class="task-title">
+                        <label for="title">Titlu sarcina:</label>
+                        <input type="text" id="title" placeholder="Titlu" required>
+                    </div>
+
+                    <div class="task-description">
+                        <label for="description">Descriere sarcina (optional)</label>
+                        <input type="text" id="description" placeholder="Descriere...">
+                    </div>
+
+                    <div class="task-status">
+                        <label for="status">Status:</label>
+                        <select id="status">
+                            <option value="todo">In asteptare</option>
+                            <option value="in-progress">In curs de realizare</option>
+                            <option value="done">Completat</option>
+                        </select>
+                    </div>
+
+                    <div class="task-dueDate">
+                        <label for="dueDate">Data scadenta:</label>
+                        <input type="date" id="dueDate">
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" onclick="handleAddTask();return false;">Adauga sarcina</button>
+                    </div>
+                </form>
+
+                <div class="tasks-list" id="tasksContainer">
+                    <h2>Sarcinile tale</h2>
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script src="js/auth.js"></script>
+    <script src="js/addtask.js"></script>
+    <script>
+        
+        // initialize tasks UI
+        window.initTasksPage && window.initTasksPage();
+    </script>
+</html>

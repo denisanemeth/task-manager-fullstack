@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Baza de date MongoDB
+  mongodb:
+    image: mongo:7
+    container_name: task-manager-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      # if you want to initialize a non-default DB or credentials, set these
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: taskmanager
+    volumes:
+      - mongodb_data:/data/db
+
+  # Backend  API-ul Node.js
+  backend:
+    # use the repository root as build context so that the frontend folder is available
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    container_name: task-manager-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      # when deploying via docker-compose, point the backend at the MongoDB service
+      MONGODB_URI: ${MONGODB_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${PORT}
+      # optional: override API_URL that will be injected into frontend config
+      API_URL: ${API_URL}
+
+# Volume pentru date persistente
+volumes:
+  mongodb_data:
