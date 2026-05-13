@@ -57,5 +57,10 @@
         </div>
 
     </body>
+    <script src="js/theme.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        window.initThemeFromStorage && window.initThemeFromStorage();
+        window.attachControlTracking && window.attachControlTracking(['name','email','password']);
+    </script>
 </html>

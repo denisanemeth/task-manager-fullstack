@@ -1,13 +1,22 @@
+:root {
+  --app-bg: #f0f2f5;
+  --app-text: #333333;
+  --card-bg: #ffffff;
+  --primary-color: #3498db;
+  --muted-color: #7f8c8d;
+  --surface-color: #fbfdff;
+}
+
  * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
  }
-
+ 
  body {
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   background-color: #f0f2f5;
-   color: #333;
+   background-color: var(--app-bg);
+   color: var(--app-text);
    min-height: 100vh;
    display: flex;
    align-items: center;
@@ -144,23 +153,185 @@
    display: block;
  }
 
- .loading {
-   display: inline-block;
-   width: 16px;
-   height: 16px;
-   border: 2px solid white;
-   border-top-color: transparent;
-   border-radius: 50%;
-   animation: spin 0.8s linear infinite;
-   margin-right: 8px;
-   vertical-align: middle;
+ .main-nav {
+   display: flex;
+   justify-content: center;
+   gap: 16px;
+   margin-bottom: 16px;
+   flex-wrap: wrap;
  }
-
- @keyframes spin {
-   to {
-     transform: rotate(360deg);
-   }
+ 
+ .main-nav a {
+   color: var(--primary-color);
+   text-decoration: none;
+   font-weight: 600;
  }
+ 
+ .main-nav a:hover {
+   text-decoration: underline;
+ }
+ 
+ .page-card,
+ .theme-card,
+ .help-card {
+   background: var(--card-bg);
+   border-radius: 16px;
+   padding: 24px;
+   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+   margin-bottom: 20px;
+ }
+ 
+ .theme-card h2,
+ .help-card h2 {
+   margin-bottom: 12px;
+ }
+ 
+ .theme-card p,
+ .help-card p {
+   color: var(--muted-color);
+   line-height: 1.6;
+ }
+ 
+ .settings-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 12px;
+   margin-bottom: 16px;
+ }
+ 
+ .control-counter {
+   border: 1px solid #e8eef6;
+   border-radius: 12px;
+   padding: 16px;
+   background: var(--surface-color);
+ }
+ 
+ .counter-list {
+   list-style: inside;
+   padding-left: 0;
+ }
+ 
+ .counter-list li {
+   margin-bottom: 8px;
+   color: #2c3e50;
+ }
+ 
+ .help-page {
+   display: grid;
+   gap: 16px;
+ }
+ 
+ .help-card {
+   border: 1px solid #e8eef6;
+ }
+ 
+ .btn-secondary {
+   background: #f5f7fb;
+   color: var(--app-text);
+   border: 1px solid #d8e2ef;
+ }
+ 
+ .btn-secondary:hover {
+   background: #e8effc;
+ }
+ 
+ .info-box {
+   background: #ffffff;
+   border: 1px solid #dbe4ef;
+   border-radius: 12px;
+   padding: 16px;
+   margin-top: 12px;
+   color: var(--muted-color);
+ }
+ 
+ .form-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 12px;
+ }
+ 
+ .task-form input[type="color"] {
+   height: 44px;
+   padding: 0 12px;
+ }
+ 
+ .task-form input[type="color"]::-webkit-color-swatch-wrapper {
+   padding: 0;
+ }
+ 
+ .task-form input[type="color"]::-webkit-color-swatch {
+   border-radius: 12px;
+ }
+ 
+ .help-card {
+   padding: 18px 20px;
+ }
+ 
+ .help-card h2 {
+   font-size: 18px;
+ }
+ 
+ .help-card p {
+   margin-top: 8px;
+ }
+ 
+ .page-card {
+   display: grid;
+   gap: 20px;
+ }
+ 
+ .main-header {
+   text-align: center;
+   margin-bottom: 40px;
+ }
+ 
+ .main-header h1 {
+   font-size: 32px;
+   display: inline-flex;
+   align-items: center;
+   color: var(--app-text);
+ }
+ 
+ .main-header .subtitle {
+   color: var(--muted-color);
+   font-size: 16px;
+   margin-top: 8px;
+ }
+ 
+ .auth-container,
+ .main-container {
+   width: 100%;
+   max-width: 1000px;
+   padding: 20px;
+ }
+ 
+ .auth-card {
+   background: var(--card-bg);
+ }
+ 
+ .task-form,
+ .auth-card {
+   width: 100%;
+ }
+ 
+ .task-form {
+   background: var(--card-bg);
+ }
+ 
+ .task-form input[type="text"],
+ .task-form input[type="date"],
+ .task-form select,
+ .form-group input[type="color"] {
+   background: var(--surface-color);
+ }
+ 
+ .main-container {
+   padding: 40px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+   align-items: stretch;
 
  @media (max-width: 480px) {
    .auth-card {

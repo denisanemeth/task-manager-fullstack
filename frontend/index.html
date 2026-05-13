@@ -5,10 +5,9 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Task Manager</title>
         <link rel="stylesheet" href="css/style.css">
-        
+        <script src="js/theme.js"></script>
         <script src="/config.js"></script>
     <script>
-       
         if (!localStorage.getItem('token')) {
             window.location.href = 'login.html';
         }
@@ -18,9 +17,14 @@
         <div class="main-container">
 
             <header class="main-header">
+                <nav class="main-nav">
+                    <a href="index.html">Acasă</a>
+                    <a href="settings.html">Setări</a>
+                    <a href="help.html">Heuristici</a>
+                    <a href="logout.html">Deconectare</a>
+                </nav>
                 <h1><span class="logo">✔</span>Task Manager</h1>
                 <p class="subtitle">Organize your tasks efficiently</p>
-                <button class="btn btn-primary" onclick="handleLogout();return false;">Deconectează-te</button>
             </header>
 
             <div class="content">
@@ -49,10 +53,12 @@
                         <input type="date" id="dueDate">
                     </div>
 
-                    <div>
+                    <div class="form-actions">
                         <button class="btn btn-primary" onclick="handleAddTask();return false;">Adauga sarcina</button>
+                        <button class="btn btn-secondary" onclick="window.reorderTaskFormFields && window.reorderTaskFormFields(); return false;">Rearanjează câmpurile</button>
                     </div>
                 </form>
+                <div class="info-box">Apasă pe câmpuri pentru a contoriza accesările. Aceste date sunt folosite pentru rearanjarea controalelor pe pagina.</div>
 
                 <div class="tasks-list" id="tasksContainer">
                     <h2>Sarcinile tale</h2>
@@ -64,8 +70,9 @@
     <script src="js/auth.js"></script>
     <script src="js/addtask.js"></script>
     <script>
-        
-        // initialize tasks UI
+        window.initThemeFromStorage && window.initThemeFromStorage();
+        window.attachControlTracking && window.attachControlTracking(['title','description','status','dueDate']);
+        window.reorderTaskFormFields && window.reorderTaskFormFields();
         window.initTasksPage && window.initTasksPage();
     </script>
 </html>

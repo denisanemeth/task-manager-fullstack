@@ -94,6 +94,24 @@ This starts:
 - MongoDB on port 27017
 - Backend API on port 3000
 
+### Build and publish Docker image
+
+The repository already includes a `backend/Dockerfile` and a GitHub Actions workflow to build and publish the image for you.
+
+To build locally:
+```bash
+docker build -t task-manager-backend:latest -f backend/Dockerfile .
+```
+
+To publish to Docker Hub:
+```bash
+docker tag task-manager-backend:latest <dockerhub-username>/task-manager-backend:latest
+docker login
+docker push <dockerhub-username>/task-manager-backend:latest
+```
+
+To publish to GitHub Container Registry automatically, push the repository to GitHub and use the workflow in `.github/workflows/docker-publish.yml`.
+
 ## API Endpoints
 
 ### Authentication

@@ -121,7 +121,20 @@ async function handleAddTask(event) {
 	const description = document.getElementById('description').value.trim();
 	const status = document.getElementById('status') ? document.getElementById('status').value : 'todo';
 	const dueDate = document.getElementById('dueDate').value || null;
-	if (!title) return alert('Adauga un titlu');
+	const today = new Date().toISOString().split('T')[0];
+
+	if (!title) {
+		return alert('Titlul este obligatoriu.');
+	}
+	if (title.length < 3) {
+		return alert('Titlul trebuie sa aiba minim 3 caractere.');
+	}
+	if (description.length > 200) {
+		return alert('Descrierea nu poate avea mai mult de 200 caractere.');
+	}
+	if (dueDate && dueDate < today) {
+		return alert('Data scadenta nu poate fi in trecut.');
+	}
 	await createTask({ title, description, status, dueDate });
 	document.getElementById('taskForm').reset();
 	initTasksPage();
@@ -135,6 +148,8 @@ async function initTasksPage() {
 		form.removeEventListener('submit', handleAddTask);//evitare dublare event listener daca init este apelat de mai multe ori
 		form.addEventListener('submit', handleAddTask);
 	}
+	window.attachControlTracking && window.attachControlTracking(['title', 'description', 'status', 'dueDate']);
+	window.reorderTaskFormFields && window.reorderTaskFormFields();
 }
 //face functiile disponibile global
 

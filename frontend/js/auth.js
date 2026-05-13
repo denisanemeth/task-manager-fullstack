@@ -7,8 +7,13 @@
 // simple.
 const API_URL = '/api';
 
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function showMessage(text,type){
     const messageDiv=document.getElementById('message');
+    if (!messageDiv) return;
     messageDiv.textContent=text;
     messageDiv.className=`message ${type}`;
 }
@@ -37,7 +42,15 @@ async function handleLogin(event) {
     const password=document.getElementById('password').value;
     if(!email||!password){
         showMessage('Completeaza toate campurile!','error');
-
+        return;
+    }
+    if(!validateEmail(email)){
+        showMessage('Introdu un email valid.','error');
+        return;
+    }
+    if(password.length<6){
+        showMessage('Parola trebuie sa aiba minim 6 caractere.','error');
+        return;
     }
     try{
         setLoading('loginBtn',true);
@@ -83,6 +96,14 @@ async function handleRegister(event) {
     const password=document.getElementById('password').value;
     if(!name||!email||!password){
         showMessage('Completeaza toate campurile!','error');
+        return;
+    }
+    if(name.trim().length < 3){
+        showMessage('Numele trebuie sa aiba minim 3 caractere.','error');
+        return;
+    }
+    if(!validateEmail(email)){
+        showMessage('Introdu un email valid.','error');
         return;
     }
     if(password.length<6){

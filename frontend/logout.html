@@ -9,11 +9,25 @@
     <script src="/config.js"></script>
 </head>
 <body>
-    <p>Se pregătește deconectarea...</p>
-</body>
-<script src="js/auth.js"></script>
-<script>
-    // perform logout as soon as auth.js is ready
-    handleLogout();
-</script>
+        <div class="main-container">
+            <header class="main-header">
+                <nav class="main-nav">
+                    <a href="index.html">Acasă</a>
+                    <a href="settings.html">Setări</a>
+                    <a href="help.html">Heuristici</a>
+                </nav>
+                <h1>Logout</h1>
+                <p class="subtitle">Se pregătește deconectarea.</p>
+            </header>
+            <div class="page-card">
+                <p>Te redirecționăm către pagină de autentificare.</p>
+            </div>
+        </div>
+    </body>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        window.initThemeFromStorage && window.initThemeFromStorage();
+        handleLogout();
+    </script>
 </html>

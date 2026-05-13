@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Setări - Task Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="/config.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <header class="main-header">
+            <nav class="main-nav">
+                <a href="index.html">Acasă</a>
+                <a href="settings.html">Setări</a>
+                <a href="help.html">Heuristici</a>
+                <a href="logout.html">Deconectare</a>
+            </nav>
+            <h1>Setări de interfață</h1>
+            <p class="subtitle">Personalizează fundalul, textul și controlează rearanjarea câmpurilor.</p>
+        </header>
+
+        <main class="page-card">
+            <section class="theme-card">
+                <h2>Personalizare culoare</h2>
+                <p>Alege culorile fundalului și ale textului pentru a face site-ul mai ușor de utilizat.</p>
+
+                <form id="themeForm" class="task-form">
+                    <div class="form-group">
+                        <label for="backgroundColor">Culoare fundal</label>
+                        <input type="color" id="backgroundColor" name="backgroundColor" value="#f0f2f5">
+                    </div>
+                    <div class="form-group">
+                        <label for="textColor">Culoare text</label>
+                        <input type="color" id="textColor" name="textColor" value="#333333">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Salvează tema</button>
+                    <button class="btn btn-secondary" id="resetTheme" type="button">Restabilește tema implicită</button>
+                </form>
+            </section>
+
+            <section class="theme-card">
+                <h2>Rearanjare controale</h2>
+                <p>Contorizarea accesărilor permite mutarea câmpurilor cele mai utilizate către partea de sus.</p>
+                <div class="settings-actions">
+                    <button class="btn btn-secondary" id="reorderTaskForm">Rearanjează câmpurile de task</button>
+                    <button class="btn btn-secondary" id="reorderAuthForm">Rearanjează câmpurile de autentificare</button>
+                    <button class="btn btn-secondary" id="resetCounters">Resetează contorizările</button>
+                </div>
+                <div id="counterList" class="control-counter"></div>
+            </section>
+        </main>
+    </div>
+    <script src="js/theme.js"></script>
+    <script>
+        window.initThemeFromStorage && window.initThemeFromStorage();
+        const themeForm = document.getElementById('themeForm');
+        const resetTheme = document.getElementById('resetTheme');
+        const reorderTaskForm = document.getElementById('reorderTaskForm');
+        const reorderAuthForm = document.getElementById('reorderAuthForm');
+        const resetCounters = document.getElementById('resetCounters');
+        const backgroundColorInput = document.getElementById('backgroundColor');
+        const textColorInput = document.getElementById('textColor');
+
+        const currentTheme = window.loadThemeSettings && window.loadThemeSettings();
+        if (currentTheme) {
+            backgroundColorInput.value = currentTheme.background || '#f0f2f5';
+            textColorInput.value = currentTheme.text || '#333333';
+        }
+
+        function renderCounts() {
+            window.renderControlUsage && window.renderControlUsage('counterList');
+        }
+
+        themeForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const backgroundColor = document.getElementById('backgroundColor').value;
+            const textColor = document.getElementById('textColor').value;
+            window.saveThemeSettings && window.saveThemeSettings({ background: backgroundColor, text: textColor });
+            alert('Tema a fost salvată cu succes.');
+        });
+
+        resetTheme.addEventListener('click', () => {
+            window.saveThemeSettings && window.saveThemeSettings({ background: '#f0f2f5', text: '#333333' });
+            document.getElementById('backgroundColor').value = '#f0f2f5';
+            document.getElementById('textColor').value = '#333333';
+            alert('Tema implicită a fost restaurată.');
+        });
+
+        reorderTaskForm.addEventListener('click', () => {
+            window.reorderTaskFormFields && window.reorderTaskFormFields();
+            alert('Câmpurile de task au fost rearanjate conform accesării.');
+        });
+
+        reorderAuthForm.addEventListener('click', () => {
+            window.reorderFormFields && window.reorderFormFields('.auth-card form');
+            alert('Câmpurile de autentificare au fost rearanjate conform accesării.');
+        });
+
+        resetCounters.addEventListener('click', () => {
+            window.resetControlCounters && window.resetControlCounters();
+            renderCounts();
+            alert('Contorizările controalelor au fost resetate.');
+        });
+
+        renderCounts();
+    </script>
+</body>
+</html>
